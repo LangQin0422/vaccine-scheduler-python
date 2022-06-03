@@ -1,2 +1,1 @@
-# vaccine-scheduler-python
-CSE414HW6
+# Python Application for Vaccine Scheduler
