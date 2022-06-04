@@ -74,14 +74,19 @@ class Caregiver:
         conn = cm.create_connection()
         cursor = conn.cursor()
 
+        # check if the caregiver is already available on the date
+        # if not, update the availability
         add_availability = "INSERT INTO Availabilities VALUES (%s , %s)"
+        get_availability = "SELECT * FROM Availabilities WHERE Time = %s AND Username = %s"
         try:
-            cursor.execute(add_availability, (d, self.username))
-            # you must call commit() to persist your data if you don't set
-            # autocommit to True
-            conn.commit()
+            cursor.execute(get_availability, (d, self.username))
+            if cursor.rowcount == 0:
+                add_availability = "INSERT INTO Availabilities VALUES (%s, %s)"
+                cursor.execute(add_availability, (d, self.username))
+                conn.commit()
+            else:
+                print("Caregiver is already available on the date")
         except pymssql.Error:
-            print("Error occurred when updating caregiver availability")
             raise
         finally:
             cm.close_connection()
