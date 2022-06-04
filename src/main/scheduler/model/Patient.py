@@ -74,7 +74,7 @@ class Patient:
         conn = cm.create_connection()
         cursor = conn.cursor()
 
-        get_availability = "SELECT Username FROM Availabilities WHERE Time = %s"
+        get_availability = "SELECT Username FROM Availabilities WHERE Time = %s ORDER BY Username ASC"
         try:
             cursor.execute(get_availability, d)
             if cursor.rowcount == 0:

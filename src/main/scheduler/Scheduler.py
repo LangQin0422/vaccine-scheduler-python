@@ -472,7 +472,12 @@ def show_appointments(tokens):
         user = current_caregiver
 
     # show appointments
-    user.get_schedules()
+    try:
+        user.get_schedules()
+    except Exception as e:
+        print("Error:", e)
+        print("Please try again!")
+        return
 
 
 def logout(tokens):
@@ -483,11 +488,15 @@ def logout(tokens):
         return
 
     # logout
-    if current_patient is not None:
-        current_patient = None
-
-    if current_caregiver is not None:
-        current_caregiver = None
+    try:
+        if current_patient is not None:
+            current_patient = None
+        if current_caregiver is not None:
+            current_caregiver = None
+    except Exception as e:
+        print("Error:", e)
+        print("Please try again!")
+        return
 
     print("Successfully logged out!")
 
