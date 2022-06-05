@@ -343,7 +343,8 @@ def reserve(tokens):
     vaccine = None
     try:
         vaccine = Vaccine(vaccine_name, 0).get()
-    except pymssql.Error:
+    except pymssql.Error as e:
+        print("Db-Error:", e)
         quit()
     except Exception as e:
         print("Error occurred when checking vaccine availability")
