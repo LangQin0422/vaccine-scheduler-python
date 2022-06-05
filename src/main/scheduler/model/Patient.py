@@ -114,8 +114,9 @@ class Patient:
     # date date
     def make_schedule(self, vaccine, date):
         # check 1: must have enough vaccines
-        if vaccine.available_doses == 0:
+        if vaccine.get_available_doses() <= 0:
             print("Not enough available doses!")
+            return
 
         # check 2: there must be an availability for the date
         cm = ConnectionManager()
